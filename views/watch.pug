@@ -1,34 +1,15 @@
-extends layout
+//-extends layout
 
 block content
   h1= title
-  -
-    let results = [
+  -let results = [{ watch_name: "Smart Watch", watch_color: "blue",watch_cost: 35}, {watch_name: "Wrist Watch",watch_color: "black",watch_cost: 18}, {watch_name: "Analog Watch",watch_color: "pink",watch_cost: 20}]
+  div(class="container-fluid") 
+   div(class="row")
+    each watch,index in results
+        div(class="col-sm-2" onclick=`buy(${index})`) watch_name: #{watch.watch_name}, watch_color: #{watch.watch_color}, watch_cost: #{watch.watch_cost} 
+  script. 
+   let itemNo=0
+      function buy(itemNo)
       {
-        "watch_name": "Smart Watch",
-        "watch_color": "blue",
-        "watch_cost": 35
-      },
-      {
-        "watch_name": "Wrist Watch",
-        "watch_color": "black",
-        "watch_cost": 18
-      },
-      {
-        "watch_name": "Analog Watch",
-        "watch_color": "pink",
-        "watch_cost": 20
-    
-      },                   
-    ]
-  div(class= "container-fluid")
-    div(class = "row")
-      each item,index in results
-        div(class= "col-sm-2", onclick=`buy(${index})`) #{item.watch_name}
-        div(class= "col-sm-2", onclick=`buy(${index})`) #{item.watch_color}
-        div(class= "col-sm-2", onclick=`buy(${index})`) #{item.watch_cost}
-
-  script.
-    function buy(itemNum){
-      alert(`You purchased item ${itemNum+1}`)
-    }
+          alert(`You purchased Item ${itemNo+1}`)
+      }
