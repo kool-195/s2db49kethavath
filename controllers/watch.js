@@ -18,8 +18,24 @@ exports.watch_detail = function(req, res) {
 }; 
  
 // Handle watch create on POST. 
-exports.watch_create_post = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Watch create POST'); 
+exports.watch_create_post = async function(req, res) { 
+    console.log(req.body) 
+    let document = new Watch(); 
+    // We are looking for a body, since POST does not have query parameters. 
+    // Even though bodies can be in many different formats, we will be picky 
+    // and require that it be a json object 
+    // {"costume_type":"goat", "cost":12, "size":"large"} 
+    document.watch_name = req.body.watch_name; 
+    document.watch_color = req.body.watch_color; 
+    document.watch_cost = req.body.watch_cost; 
+    try{ 
+        let result = await document.save(); 
+        res.send(result); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }   
 }; 
  
 // Handle watch delete form on DELETE. 
