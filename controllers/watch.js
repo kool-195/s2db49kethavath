@@ -31,3 +31,16 @@ exports.watch_delete = function(req, res) {
 exports.watch_update_put = function(req, res) { 
     res.send('NOT IMPLEMENTED: Watch update PUT' + req.params.id); 
 }; 
+
+// VIEWS 
+// Handle a show all view 
+exports.watch_view_all_Page = async function(req, res) { 
+    try{ 
+        theWatches = await Watch.find(); 
+        res.render('watches', { title: 'Watch Search Results', results: theWatches }); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }   
+}; 
